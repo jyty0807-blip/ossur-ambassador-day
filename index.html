@@ -88,6 +88,7 @@ section.block{padding-block:48px 8px}
 .timeline h3{margin:0;font-size:16px}
 .timeline p{margin:2px 0 0;color:var(--slate);font-size:14px}
 .timeline li.hl{background:var(--tint)}
+.timeline li.hl-y{background:var(--sun-soft)}
 .timeline li.hl h3::after{content:"촬영";margin-left:8px;font-size:11px;font-weight:700;color:#1C2227;background:var(--sun);padding:2px 7px;border-radius:999px;vertical-align:2px}
 @media (max-width:520px){.timeline li{grid-template-columns:1fr;gap:2px}}
 
@@ -344,7 +345,7 @@ const EVENT = {
   office: { name: "오서코리아", lat: 37.47546, lng: 126.88183 },
   timeline: [
     ["10:30 – 10:40", "도착 & Welcome", "음료와 간식, 명찰 수령, 참석 확인"],
-    ["10:40 – 12:20", "Office Session", "자기소개 · 오서에 바라는 점 · 2027 콘텐츠 위시리스트"],
+    ["10:40 – 12:20", "Office Session", "자기소개 · 오서에 바라는 점 · 2027 콘텐츠 위시리스트\n(사전에 요청드린 내용을 기반으로 의견 발표 및 토론)", "y"],
     ["12:30 – 13:00", "점심 & 휴식", "사무실에서 함께 식사, 자유 대화"],
     ["13:00 – 13:30", "환복 및 안양천 이동", "촬영 준비 · 유니폼 (로고 흰 티 + 로고 반바지 + 바람막이)"],
     ["13:30 – 18:00", "Photo Session", "안양천 야외 촬영 · 1인 / 그룹 / 단체 컷", true],
@@ -411,7 +412,7 @@ function renderHome(){
   $('#ev-facts').innerHTML = EVENT.facts.map(([k,v]) => `<li><b>${esc(k)}</b><span>${esc(v)}</span></li>`).join('');
   $('#ev-purpose').textContent = EVENT.purpose;
   $('#ev-pillars').innerHTML = EVENT.pillars.map(([k,v]) => `<div><strong>${esc(k)}</strong><p>${esc(v).replace(/\n/g,'<br>')}</p></div>`).join('');
-  $('#timeline').innerHTML = EVENT.timeline.map(([t,h,p,hl]) => `<li class="${hl?'hl':''}"><time>${esc(t)}</time><div><h3>${esc(h)}</h3><p>${esc(p)}</p></div></li>`).join('');
+  $('#timeline').innerHTML = EVENT.timeline.map(([t,h,p,hl]) => `<li class="${hl==='y'?'hl-y':hl?'hl':''}"><time>${esc(t)}</time><div><h3>${esc(h)}</h3><p>${esc(p).replace(/\n/g,'<br>')}</p></div></li>`).join('');
   $('#guide').innerHTML = EVENT.guide.map(([h,items]) => `<article><h3><i></i>${esc(h)}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></article>`).join('');
   if (!hoverable.matches) $('#course-hint').textContent = '핀이나 아래 목록을 누르면 장소별 촬영 예시가 열려요';
   $('#guide-note').innerHTML = '<span>' + esc(EVENT.note).replace(/\n/g,'<br>') + '</span>';
